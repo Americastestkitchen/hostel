@@ -44,6 +44,7 @@ module Hostel
   end
 end
 
+require 'hostel/detectable'
 require 'hostel/detector'
 require 'hostel/domain_constraint'
 require 'hostel/site'
