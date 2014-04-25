@@ -18,7 +18,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+If you are using rails, use `rails g hostel:install` to create a sample.yml file
+and a configuration file.
+
+TODO: Setup ENV['HOSTEL_SUBDOMAIN'] from config in generator.
 
 ## Contributing
 
