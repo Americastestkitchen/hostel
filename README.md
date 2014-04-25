@@ -18,10 +18,16 @@ Or install it yourself as:
 
 ## Usage
 
-If you are using rails, use `rails g hostel:install` to create a sample.yml file
-and a configuration file.
+If you want to overwrite the existing behavior, you can run
+`rails g hostel:install` to create a sample.yml file and a configuration file.
 
-TODO: Setup ENV['HOSTEL_SUBDOMAIN'] from config in generator.
+In your environment files you could also specify a subdomain if you need to:
+```
+Cio::Application.configure do
+  config.subdomain = 'test'
+end
+```
+
 
 ## Contributing
 
