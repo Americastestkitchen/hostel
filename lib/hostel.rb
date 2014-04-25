@@ -18,6 +18,15 @@ module Hostel
     end
   end
 
+  def self.pinning_enabled?
+    @pinning_disabled ||= false
+    !@pinning_disabled
+  end
+
+  def self.disable_pinning
+    @pinning_disabled = true
+  end
+
   def self.sites_file(filename)
     @sites_file = filename
   end

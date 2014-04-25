@@ -2,8 +2,8 @@ module Hostel
   class Detector
     attr_reader :site
     def initialize(request_domain, pinned_site=nil)
-      @request_domain = if pinned_site
-        Hostel.find(pinned_site).domain
+      @request_domain = if pinned_site && Hostel.pinning_enabled?
+        Hostel.find(pinned_site).fqdn
       else
         request_domain.to_s
       end
