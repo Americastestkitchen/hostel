@@ -15,7 +15,7 @@ module Hostel
 
     def detect
       Hostel.all.detect do |site|
-        site.domain.include?(@request_domain)
+        site.fqdn.include?(@request_domain)
       end
     end
   end
