@@ -56,5 +56,6 @@ end
 require 'hostel/detectable'
 require 'hostel/detector'
 require 'hostel/domain_constraint'
+require 'hostel/helper'
 require 'hostel/site'
 require "hostel/version"

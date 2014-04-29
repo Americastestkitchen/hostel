@@ -1,6 +1,6 @@
 # Hostel
 
-TODO: Write a gem description
+Hostel is a lightweight library for serving different (but similar) websites from the same Rails application.
 
 ## Installation
 
@@ -16,23 +16,61 @@ Or install it yourself as:
 
     $ gem install hostel
 
+Then run:
+
+    $ rails g hostel:install
+
+This will create `config/initializers/hostel.rb` and `config/sites.yml`.
+
+### Configuration
+
+Hostel expects your sites to have three attributes: `key`,
+`domain_without_subdomain`, and `subdomain`. `key` and
+`domain_without_subdomain` by default come from `sites.yml`, and `subdomain` is
+set in the initializer based on a subdomain value set in your environment
+files. This allows you to use your `/etc/hosts` file to match different sites
+locally and use subdomains in staging environments to map to the correct sites.
+`site.domain` will always be the FQDN for the current environment.
+
+You can include any other key/value pairs you like in the YAML configuration
+file and they will also be given accessors on the corresponding `Hostel::Site`
+instance.
+
 ## Usage
 
-If you want to overwrite the existing behavior, you can run
-`rails g hostel:install` to create a sample.yml file and a configuration file.
+### Accessing sites manually
 
-In your environment files you could also specify a subdomain if you need to:
-```
-Cio::Application.configure do
-  config.subdomain = 'test'
-end
-```
+`Hostel::Site` instances can be looked up by their key using
+`Hostel.find(:yourkey)`, and you can retrieve an array of all sites with
+`Hostel.all`.
 
+The instances will all have your site key names as boolean methods. For
+example, to test the identify of a `Hostel::Site` instance, you can call
+`site.google?` instead of `site.key == :google`.
 
-## Contributing
+### Routing constraints
 
-1. Fork it ( https://github.com/[my-github-username]/hostel/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+If you need to constrain a set of routes to a single site in your sites.yml,
+pass `Hostel::DomainConstraint.new(:yoursitekey)` to `constraint` in your
+`routes.rb`.
+
+### Automatic retrieval of current site
+
+Hostel provides the `Hostel::Detectable` controller concern. This gives you
+some convenient utilities:
+
+* `current_site` is a controller method and a helper method for your views. It
+  matches based on subdomain and domain (not port).
+* The `site` helper takes one or more site keys and a block. This allows you to
+  have site-specific blocks of content in your views -- the content will only
+  render if `current_site` matches one of the keys given.
+
+### Site pinning
+
+In many cases, it's useful to force the value of `current_site` to one site or
+another for testing. If site pinning is enabled, Hostel will look for a
+querystring parameter of `pinned`. If the value of `pinned` matches the key of
+a site, it will set a cookie that will override host-based site detection
+algorithm.
+
+Site pinning is disabled for production by default in the generated initializer.

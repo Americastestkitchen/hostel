@@ -13,8 +13,8 @@ module Hostel
       self.class.delegate "#{self.key}?", to: :inquirable_key
     end
 
-    def fqdn
-      @fqdn ||= [self.subdomain, self.domain].join('.')
+    def domain
+      @domain ||= [self.subdomain, self.domain_without_subdomain].join('.')
     end
 
     def inquirable_key
