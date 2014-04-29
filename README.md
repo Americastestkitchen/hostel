@@ -18,7 +18,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+If you want to overwrite the existing behavior, you can run
+`rails g hostel:install` to create a sample.yml file and a configuration file.
+
+In your environment files you could also specify a subdomain if you need to:
+```
+Cio::Application.configure do
+  config.subdomain = 'test'
+end
+```
+
 
 ## Contributing
 
