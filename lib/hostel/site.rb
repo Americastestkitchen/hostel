@@ -20,5 +20,11 @@ module Hostel
     def inquirable_key
       ActiveSupport::StringInquirer.new(self.key.to_s)
     end
+
+    def to_json
+      data = self.as_json
+      data[:domain] = domain
+      data.to_json
+    end
   end
 end
