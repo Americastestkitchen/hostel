@@ -19,7 +19,7 @@ module Hostel
 
     def as_json(options = nil)
       self[:domain] = domain
-      super(options)
+      self.to_h.as_json(options)
     end
   end
 end
