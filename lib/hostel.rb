@@ -16,6 +16,7 @@ module Hostel
         site.instance_eval(&@site_initializer)
       end
     end
+    all.freeze
   end
 
   def self.pinning_enabled?
