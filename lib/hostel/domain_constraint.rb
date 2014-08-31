@@ -5,7 +5,7 @@ module Hostel
     end
 
     def matches?(request)
-      current_site = Hostel::Detector.new(request.domain, request.cookies['pinned']).site
+      current_site = Hostel::Detector.new(request.host, request.cookies['pinned']).site
       current_site.key == @site_key
     end
   end
