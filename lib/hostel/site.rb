@@ -12,6 +12,26 @@ module Hostel
     def domain
       @domain ||= [self.subdomain, self.domain_without_subdomain].join('.')
     end
+    
+    # Constructs a url for a path on this site
+    def build_path(path, secure: true, path_args: {})
+      url = if secure
+        'https://'
+      else
+        'http://'
+      end
+
+      url << domain
+      if path && !path.empty?
+        url << '/' + path.gsub(/\A\/+/, "")
+      end
+
+      if !path_args.empty?
+        url << '?' + path_args.map{|k, v| "#{k}=#{v}"}.join('&')
+      end
+
+      url
+    end
 
     def inquirable_key
       ActiveSupport::StringInquirer.new(self.key.to_s)
