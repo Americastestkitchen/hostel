@@ -15,7 +15,7 @@ module Hostel
           cookies[:pinned] = site.key
           Hostel::Detector.new(site.domain).site
         else
-          Hostel::Detector.new(request.domain, cookies[:pinned]).site
+          Hostel::Detector.new(request.host, cookies[:pinned]).site
         end
       end
     end
