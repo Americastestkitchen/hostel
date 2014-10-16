@@ -74,3 +74,30 @@ a site, it will set a cookie that will override host-based site detection
 algorithm.
 
 Site pinning is disabled for production by default in the generated initializer.
+
+### Path building
+
+If you want to build links to different tenants on the system, we have a handy
+new `build_path` method. This can be used to do cool things.
+
+Example usage:
+
+* Build a link to the upgrade path on the current site
+`current_site.build_path('upgrade')`
+
+* Build a link to a recipe on the current site, insecurely
+`current_site.build_path('/recipe/2487-some-delicious-recipe', secure: false)
+- By default, build_path uses https
+
+* Build a link to the order page, with query parameters
+
+`current_site.build_path('order', params: { :incode => 'CIOSTUFF', :purchase_type => 'instructor_access' })`
+
+* Build a link to the Cooking School Courses page from Everest
+
+`Hostel.find('school_main').build_path('courses', secure: false, params: { :stuff => 'OTHERSTUFF' })`
+
+* Build a link to the support page
+
+`current_site.build_path(support_path, secure: false)`
+
