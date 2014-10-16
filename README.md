@@ -83,10 +83,13 @@ new `build_path` method. This can be used to do cool things.
 Example usage:
 
 * Build a link to the upgrade path on the current site
+
 `current_site.build_path('upgrade')`
 
 * Build a link to a recipe on the current site, insecurely
-`current_site.build_path('/recipe/2487-some-delicious-recipe', secure: false)
+
+`current_site.build_path('/recipe/2487-some-delicious-recipe', secure: false)`
+
 - By default, build_path uses https
 
 * Build a link to the order page, with query parameters
