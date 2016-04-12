@@ -5,7 +5,11 @@ module Hostel
     end
 
     def matches?(request)
-      current_site = Hostel::Detector.new(request.host, request.cookies['pinned']).site
+      if request.headers['X-PROXIED-FOR']
+        current_site = Hostel::Detector.new(request.headers['X-PROXIED-FOR'], request.cookies['pinned']).site
+      else
+        current_site = Hostel::Detector.new(request.host, request.cookies['pinned']).site
+      end
       @site_keys.include?(current_site.key)
     end
   end

@@ -14,6 +14,8 @@ module Hostel
         if site = Hostel.find(request.params[:pinned])
           cookies[:pinned] = site.key
           Hostel::Detector.new(site.domain).site
+        elsif request.headers['X-PROXIED-FOR']
+            Hostel::Detector.new(request.headers['X-PROXIED-FOR'], cookies[:pinned]).site
         else
           Hostel::Detector.new(request.host, cookies[:pinned]).site
         end
