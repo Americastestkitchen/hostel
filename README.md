@@ -94,13 +94,17 @@ Example usage:
 
 * Build a link to the order page, with query parameters
 
-`current_site.build_path('order', params: { :incode => 'CIOSTUFF', :purchase_type => 'instructor_access' })`
+`current_site.build_path('order', path_args: { :incode => 'CIOSTUFF', :purchase_type => 'instructor_access' })`
 
 * Build a link to the Cooking School Courses page from Everest
 
-`Hostel.find('school_main').build_path('courses', secure: false, params: { :stuff => 'OTHERSTUFF' })`
+`Hostel.find('school_main').build_path('courses', secure: false, path_args: { :stuff => 'OTHERSTUFF' })`
 
 * Build a link to the support page
 
 `current_site.build_path(support_path, secure: false)`
+
+* Build a link to a page and have it work in the qa environment by specifiying the host
+
+'current_site.build_path(sign_in_path, request_host: request.server_name)}'
 
