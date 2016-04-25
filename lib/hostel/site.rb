@@ -7,6 +7,7 @@ module Hostel
     def initialize(*args)
       super
       self.class.delegate "#{self.key}?", to: :inquirable_key
+      self.port = nil
     end
 
     def domain
@@ -14,20 +15,17 @@ module Hostel
     end
     
     # Constructs a url for a path on this site
-    def build_path(path, secure: true, path_args: {}, request_host: nil)
-      local_env = domain.include? 'www-test'
-      qa_env = request_host&.include? 'qa.herokuapp.com'
-
-      url = if secure && !local_env
+    def build_path(path, secure: true, path_args: {})
+      url = if secure
         'https://'
       else
         'http://'
       end
 
-      qa_env ? url << request_host : url << domain
+      url << domain
 
-      if local_env
-        url << ':' + ENV['WEBSERVERPORT']
+      if port
+        url<<":#{port}"
       end
 
       if path && !path.empty?

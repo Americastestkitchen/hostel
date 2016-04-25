@@ -2,6 +2,9 @@ module Hostel
   class Detector
     attr_reader :site
     def initialize(request_domain, pinned_site=nil)
+      host_components = request_domain.split(':')
+      request_domain = host_components[0]
+      port = host_components[1]
       @request_domain = if pinned_site && Hostel.pinning_enabled?
         Hostel.find(pinned_site).domain
       else
@@ -9,6 +12,7 @@ module Hostel
       end
 
       @site = detect || Hostel.default_site
+      @site.port = port
     end
 
     private
