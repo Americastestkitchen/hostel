@@ -103,8 +103,3 @@ Example usage:
 * Build a link to the support page
 
 `current_site.build_path(support_path, secure: false)`
-
-* Build a link to a page and have it work in the qa environment by specifiying the host
-
-'current_site.build_path(sign_in_path, request_host: request.server_name)}'
-
