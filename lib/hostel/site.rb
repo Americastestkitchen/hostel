@@ -15,7 +15,9 @@ module Hostel
     end
     
     # Constructs a url for a path on this site
-    def build_path(path, secure: true, path_args: {})
+    # Note:  request_host is ignored now, but it is here for backward
+    # compatibility with old callers.
+    def build_path(path, secure: true, path_args: {}, request_host: nil)
       url = if secure
         'https://'
       else
