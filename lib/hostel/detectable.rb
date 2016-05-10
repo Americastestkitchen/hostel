@@ -17,7 +17,7 @@ module Hostel
         elsif request.headers['X-PROXIED-FOR']
             Hostel::Detector.new(request.headers['X-PROXIED-FOR'], cookies[:pinned]).site
         else
-          Hostel::Detector.new(request.host, cookies[:pinned]).site
+          Hostel::Detector.new(request.host_with_port, cookies[:pinned]).site
         end
       end
     end
