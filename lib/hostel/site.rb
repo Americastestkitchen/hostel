@@ -22,10 +22,10 @@ module Hostel
         'http://'
       end
 
-      url << domain
+      url << (ENV['QA_HOST'] || domain)
 
       if port
-        url<<":#{port}"
+        url << ":#{port}"
       end
 
       if path && !path.empty?
