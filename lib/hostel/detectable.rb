@@ -11,7 +11,11 @@ module Hostel
 
     def current_site
       @current_site ||= begin
-        if site = Hostel.find(request.params[:pinned])
+        if params[:subcategory] === "cookscountry"
+          Hostel::Detector.new('cookscountry.com').site
+        elsif params[:subcategory] === "cooksillustrated"
+          Hostel::Detector.new('cooksillustrated.com').site
+        elsif site = Hostel.find(request.params[:pinned])
           cookies[:pinned] = site.key
           Hostel::Detector.new(site.domain).site
         elsif request.headers['X-PROXIED-FOR']
